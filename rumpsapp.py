@@ -63,5 +63,6 @@ class AwesomeStatusBarApp(rumps.App):
     def sayhi(self, _):
         rumps.notification("Awesome title", "amazing subtitle", "hi!!1")
 
+        # every 30 seconds, let us download all the open pages locally. Each time a tab is closed we delete the local copy of it. This is essentially browser tmux
 if __name__ == "__main__":
     AwesomeStatusBarApp().run()
