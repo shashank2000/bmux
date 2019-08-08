@@ -1,0 +1,19 @@
+{
+  "name": "outside",
+  "version": "1.0.0",
+  "description": "cli to give forecasts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "outside": "bin/outside"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "minimist": "^1.2.0",
+    "ora": "^3.4.0"
+  }
+}

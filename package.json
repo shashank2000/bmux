@@ -1,0 +1,22 @@
+{
+  "name": "bmux",
+  "version": "1.0.0",
+  "description": "tmux, but for the browser. For the most part.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shashank2000/bmux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shashank2000/bmux/issues"
+  },
+  "homepage": "https://github.com/shashank2000/bmux#readme"
+}
