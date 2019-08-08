@@ -1,8 +1,6 @@
-
-
 tell application "Safari"
-	
-	set myFile to open for access file "Macintosh HD:Users:shashankrammoorthy:dumbprojects:bmux:safaritabs" with write permission
+
+	set myFile to open for access (choose file name) with write permission
 	set windowNumber to 1
 	repeat the number of windows times
 		set myTabs to every tab of window windowNumber
