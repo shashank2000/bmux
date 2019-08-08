@@ -1,9 +1,7 @@
-
-
 tell application "Safari"
-	
-	set myFile to open for access file (POSIX path of ((path to me as text) & "s")) with write permission
-	set windowNumber to 1
+
+  set myFile to open for access file (POSIX path of ((path to me as text) & "::") & "tabs.txt" as POSIX file) with write permission
+  set windowNumber to 1
   set myTabs to every tab of window windowNumber
   repeat the number of windows times
     write "----- Window Number " & windowNumber & " -----\n\n" to myFile
