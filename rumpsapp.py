@@ -3,6 +3,7 @@ from subprocess import Popen
 
 class AwesomeStatusBarApp(rumps.App):
     def __init__(self):
+        # add an icon by setting icon="filepath of icon"
         super(AwesomeStatusBarApp, self).__init__("Awesome App")
         self.menu = ["Start bmux session", "Run an apple script", "Say hi"]
 
@@ -57,11 +58,8 @@ class AwesomeStatusBarApp(rumps.App):
         end tell'''
         p = Popen(['osascript', '-e', chrome_script])
 
-    @rumps.clicked("Silly button")
-    def onoff(self, sender):
-        sender.state = not sender.state
-
-    @rumps.clicked("Say hi")
+        # add an icon 
+    @rumps.clicked("Start session")
     def sayhi(self, _):
         rumps.notification("Awesome title", "amazing subtitle", "hi!!1")
 
