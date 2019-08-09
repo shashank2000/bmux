@@ -7,13 +7,35 @@ class StatusBarApp(rumps.App):
         super(StatusBarApp, self).__init__("BMUX")
         self.menu = ["Start session", "Load session"]
         self.icon = "icon.png"
+        self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
+        self.script = "safari_tabs.scpt"
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
-        open(self.tabs_file, "w").close()
-        p = Popen(["osascript", "safari_tabs.scpt"])
+        response = rumps.Window(
+            cancel="Cancel",
+            title="Enter a session name",
+            dimensions=(300,20)
+        ).run()
+        if not response.clicked: return
+
+        open(self.temp_file, "w").close()
+        p = Popen(["osascript", self.script])
         print("----Tabs recorded----")
+
+        tabs = {}
+        with open(self.temp_file, "r") as read:
+            with open(self.tabs_file, "w") as write:
+                line = file.readline()
+                name = ""
+                if line == "Window":
+                    pass
+                elif line.startswith("Name"):
+                    name = line.split(" ")[1]
+                elif line.startswith("URL"):
+                    tabs[name] = line.split(" ")[1]
+
 
     def get_session_names(self):
         with open(self.tabs_file, "r") as f:
