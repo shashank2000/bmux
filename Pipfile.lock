@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b39ee8ae21c2b39de074a928963596d3a8219d25da4417bf788b2f26aa935291"
+            "sha256": "94d2062ce3f8c28be2bb6ccc7ed4ffd20a0883502d335989fe5bc68d614ecade"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,35 @@
         ]
     },
     "default": {
+        "altgraph": {
+            "hashes": [
+                "sha256:d6814989f242b2b43025cba7161fc1b8fb487a62cd49c49245d6fd01c18ac997",
+                "sha256:ddf5320017147ba7b810198e0b6619bd7b5563aa034da388cea8546b877f9b0c"
+            ],
+            "version": "==0.16.1"
+        },
+        "macholib": {
+            "hashes": [
+                "sha256:ac02d29898cf66f27510d8f39e9112ae00590adb4a48ec57b25028d6962b1ae1",
+                "sha256:c4180ffc6f909bf8db6cd81cff4b6f601d575568f4d5dee148c830e9851eb9db"
+            ],
+            "version": "==1.11"
+        },
+        "modulegraph": {
+            "hashes": [
+                "sha256:9991538487efaa2d77b78bded12f7ba223f1a143f8ad75ed6484afa70b3d47e1",
+                "sha256:d2824588c489c0ba6f815c066950400755e8e287da64bcddae4c0d6e76f8f5f3"
+            ],
+            "version": "==0.17"
+        },
+        "py2app": {
+            "hashes": [
+                "sha256:e77544f32231c857259afc731c5c96fcb202e7ab370807f0608e9f37fee212e5",
+                "sha256:f3b9f4deb466998304fedea739bfa7bc553a1887656f7ee6accb2899e9e45b52"
+            ],
+            "index": "pypi",
+            "version": "==0.19"
+        },
         "pyobjc-core": {
             "hashes": [
                 "sha256:046449f510c1f33d41bdd0d4c8eb2f084593a2ee4573a25d604bdccabb7a909e",
