@@ -94,6 +94,9 @@ class StatusBarApp(rumps.App):
     for s in session_names:
         @rumps.clicked("Load session", s)
         def load_session(self, _):
+            # open default browser from python, with all the tabs
+
+            # first load tabs from txt
             pass
         # every 30 seconds, let us download all the open pages locally. Each time a tab is closed we delete the local copy of it. This is essentially browser tmux
         # LOOK AT RUMPS timer

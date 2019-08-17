@@ -1,4 +1,4 @@
-tell application "Safari"
+tell application "Chrome"
 
 	set myFile to open for access to POSIX path of ((path to me as text) & "::") with write permission
 	set windowNumber to 1
