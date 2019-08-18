@@ -44,6 +44,7 @@ class StatusBarApp(rumps.App):
                 f.write("\n")
 
     @rumps.clicked("Start session")
+    @rumps.timer(60) # run record_tabs every 60 seconds
     def record_tabs(self, _):
         # rumps.alert("something was clicked")
 
