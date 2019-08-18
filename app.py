@@ -5,7 +5,9 @@ class StatusBarApp(rumps.App):
     def __init__(self):
         # add an icon by setting icon="filepath of icon"
         super(StatusBarApp, self).__init__("BMUX")
-        self.menu = ["Start session", "Load session", "Delete session"]
+        self.menu = ["Start session", ["Load session", [rumps.MenuItem(session_name, callback=self.load_session) 
+        for session_name in self.session_names]], ["Delete session", [rumps.MenuItem(session_name, callback=self.delete_session) for 
+        session_name in self.session_names]]]
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
@@ -43,6 +45,8 @@ class StatusBarApp(rumps.App):
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
+        # rumps.alert("something was clicked")
+
         response = rumps.Window(
             cancel="Cancel",
             title="Enter a session name",
@@ -91,19 +95,18 @@ class StatusBarApp(rumps.App):
         return session_names
 
     session_names = get_session_names("tabs.txt") # Hack solution
-    for s in session_names:
-        @rumps.clicked("Load session", s)
-        def load_session(self, _):
-            # open default browser from python, with all the tabs
+    print(session_names)
 
-            # first load tabs from txt
-            pass
-        # every 30 seconds, let us download all the open pages locally. Each time a tab is closed we delete the local copy of it. This is essentially browser tmux
-        # LOOK AT RUMPS timer
+    @rumps.clicked("Load session")
+    def load_session(self, session_name):
+        # how do you pass a particular session name?
+        # read through the text file, add each website to the string
+        rumps.alert("load_session was triggered, with session name " + session_name)
+    # LOOK AT RUMPS timer
 
-        @rumps.clicked("Delete session", s)
-        def delete_tabs(self, _):
-            pass
+    @rumps.clicked("Delete session")
+    def delete_session(self, _):
+        pass
 
 if __name__ == "__main__":
     StatusBarApp().run()
