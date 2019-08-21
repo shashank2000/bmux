@@ -5,9 +5,7 @@ class StatusBarApp(rumps.App):
     def __init__(self):
         # add an icon by setting icon="filepath of icon"
         super(StatusBarApp, self).__init__("BMUX")
-        self.menu = ["Start session", ["Load session", [rumps.MenuItem(session_name, callback=self.load_session) 
-        for session_name in self.session_names]], ["Delete session", [rumps.MenuItem(session_name, callback=self.delete_session) for 
-        session_name in self.session_names]]]
+        self.menu = ["Start session", "Load session", "Delete session"]
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
