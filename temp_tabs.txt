@@ -1,8 +1,0 @@
-Name: Google
-URL: missing value
-Name: www6.random.com/?s_token=1566001392.0025875491&kw=useless&term=Random%20Online%20College%20Degrees&term=Random%20Personal%20Credit%20Cards&term=Random%20Car%20Accident%20Lawyers&term=Random%20Health%20Insurance%20Plans&term=Random%20Dedicated%20Servers&showDomain=1&backfill=0&tdfs=0
-URL: missing value
-Name: another tab - Google Search
-URL: missing value
-Name: hello - Google Search
-URL: missing value
