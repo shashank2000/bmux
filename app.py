@@ -98,16 +98,17 @@ class StatusBarApp(rumps.App):
     session_names = get_session_names("tabs.txt") # Hack solution
     print(session_names)
 
-    @rumps.clicked("Load session")
-    def load_session(self, session_name):
-        # how do you pass a particular session name?
-        # read through the text file, add each website to the string
-        rumps.alert("load_session was triggered, with session name " + session_name)
-    # LOOK AT RUMPS timer
+    for s in session_names:
+        @rumps.clicked("Load session", s)
+        def load_session(self, session_name):
+            # how do you pass a particular session name?
+            # read through the text file, add each website to the string
+            rumps.alert("load_session was triggered, with session name " + session_name)
+        # LOOK AT RUMPS timer
 
-    @rumps.clicked("Delete session")
-    def delete_session(self, _):
-        pass
+        @rumps.clicked("Delete session", s)
+        def delete_session(self, _):
+            pass
 
 if __name__ == "__main__":
     StatusBarApp().run()
