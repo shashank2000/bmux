@@ -1,5 +1,7 @@
 Name: session_1
-https://github.com/shashank2000/bmux
+missing value
+missing value
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
 
 Name: session_5
 http://localhost:8888/notebooks/flux_emergence_analysis.ipynb
@@ -11,8 +13,3 @@ http://localhost:8888/notebooks/flux_emergence_analysis.ipynb
 https://trello.com/b/hFp35Adi/bmux-board
 https://github.com/shashank2000/bmux
 
-Name: session_7
-http://localhost:8888/notebooks/flux_emergence_analysis.ipynb
-https://trello.com/b/hFp35Adi/bmux-board
-https://github.com/shashank2000/bmux
-https://www.youtube.com/watch?v=DUT5rEU6pqM&app=desktop

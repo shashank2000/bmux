@@ -15,7 +15,7 @@ class StatusBarApp(rumps.App):
         self.tabs_file = "tabs.txt"
         self.script_file = "safari_tabs.scpt"
 
-        self.current_session = None
+        self.current_session = ""
         self.load_menu = []
         self.delete_menu = []
         self.load_all_sessions()
@@ -163,6 +163,7 @@ class StatusBarApp(rumps.App):
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
+        self.current_session = var.title
 
     def delete_session(self, var):
         session_data = self.read_sessions()
