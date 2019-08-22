@@ -49,7 +49,7 @@ class StatusBarApp(rumps.App):
     @rumps.clicked("Start session")
     def record_tabs(self, _):
         response = rumps.Window(
-            default_text="my cool session"
+            default_text="my cool session",
             cancel="Cancel",
             title="Enter a session name",
             dimensions=(300,20)
@@ -106,10 +106,35 @@ class StatusBarApp(rumps.App):
             self.load_menu.append(load_item)
             self.delete_menu.append(delete_item)
 
+    def update_all_sessions(self):
+        session_names = self.get_session_names(self.tabs_file)
+        load_menu = rumps.MenuItem("Load session")
+        delete_menu = rumps.MenuItem("Delete session")
+        for name in session_names:
+            load_item = rumps.MenuItem(name, callback=self.load_session)
+            delete_item = rumps.MenuItem(name, callback=self.delete_session)
+            load_menu.add(load_item)
+            delete_menu.add(delete_item)
+        print(delete_menu)
+        modified_menu = rumps.rumps.Menu()
+        print(modified_menu)
+        print(self.menu.values()[0])
+        #modified_menu.add(self.menu[0])
+        #modified_menu.add(self.menu[3])
+        print(modified_menu)
+        self.menu.clear()
+        self.menu.add(load_menu)
+        self.menu.add(delete_menu)
+        self.menu.add(rumps.MenuItem("Quit"))
+        #self.menu = modified_menu
+        print("foo")
+        #print(self.menu)
+
     def load_session(self, var):
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
+        self.update_all_sessions()
 
     def delete_session(self, var):
         session_data = self.read_sessions()
@@ -118,6 +143,7 @@ class StatusBarApp(rumps.App):
             if session != var.title:
                 new_session_data[session] = session_data[session]
         self.write_sessions(new_session_data)
+        self.update_all_sessions()
 
 if __name__ == "__main__":
     StatusBarApp().run()
