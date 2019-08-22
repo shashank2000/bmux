@@ -115,26 +115,16 @@ class StatusBarApp(rumps.App):
             delete_item = rumps.MenuItem(name, callback=self.delete_session)
             load_menu.add(load_item)
             delete_menu.add(delete_item)
-        print(delete_menu)
-        modified_menu = rumps.rumps.Menu()
-        print(modified_menu)
-        print(self.menu.values()[0])
-        #modified_menu.add(self.menu[0])
-        #modified_menu.add(self.menu[3])
-        print(modified_menu)
         self.menu.clear()
+        self.menu.add(rumps.MenuItem("Start session", callback=self.record_tabs))
         self.menu.add(load_menu)
         self.menu.add(delete_menu)
-        self.menu.add(rumps.MenuItem("Quit"))
-        #self.menu = modified_menu
-        print("foo")
-        #print(self.menu)
+        self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
 
     def load_session(self, var):
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
-        self.update_all_sessions()
 
     def delete_session(self, var):
         session_data = self.read_sessions()
