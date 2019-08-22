@@ -3,13 +3,18 @@ import subprocess
 
 class StatusBarApp(rumps.App):
     def __init__(self):
-        # add an icon by setting icon="filepath of icon"
         super(StatusBarApp, self).__init__("BMUX")
-        self.menu = ["Start session", "Load session", "Delete session"]
+
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
         self.script_file = "safari_tabs.scpt"
+
+        self.sub_menu = []
+        self.load_all_sessions()
+        self.menu = ["Start session",
+                     ("Load session", self.sub_menu),
+                     "Delete session"]
 
     def read_sessions(self):
         """Reads sessions from tabs_file. Returns a dictionary with keys as session names
@@ -44,8 +49,6 @@ class StatusBarApp(rumps.App):
     @rumps.clicked("Start session")
     #@rumps.timer(60) # run record_tabs every 60 seconds
     def record_tabs(self, _):
-        # rumps.alert("something was clicked")
-
         response = rumps.Window(
             cancel="Cancel",
             title="Enter a session name",
@@ -68,6 +71,7 @@ class StatusBarApp(rumps.App):
                     tabs[name] = " ".join(line.split(" ")[1:]).strip()
 
         sessions = self.read_sessions()
+        print(sessions)
         url_list = []
         for tab_name in tabs:
             url = tabs[tab_name]
@@ -84,7 +88,7 @@ class StatusBarApp(rumps.App):
         self.write_sessions(sessions)
         print("----Tabs recorded----")
 
-    def get_session_names(tabs_file):
+    def get_session_names(self, tabs_file):
         session_names = []
         with open(tabs_file, "r") as f:
             for line in f.readlines():
@@ -92,21 +96,23 @@ class StatusBarApp(rumps.App):
                     session_names.append(" ".join(line.split(" ")[1:]).strip())
         return session_names
 
-    session_names = get_session_names("tabs.txt") # Hack solution
-    print(session_names)
+    #session_names = get_session_names("tabs.txt") # Hack solution
 
-    for s in session_names:
-        @rumps.clicked("Load session", s)
-        def load_session(self, var=s):
-            print(var)
-            # how do you pass a particular session name?
-            # read through the text file, add each website to the string
-            rumps.alert("load_session was triggered, with session name " + session_name)
-        # LOOK AT RUMPS timer
+    def load_all_sessions(self):
+        session_names = self.get_session_names(self.tabs_file)
+        for name in session_names:
+            item = rumps.MenuItem(name, callback=self.load_session)
+            self.sub_menu.append(item)
 
-        @rumps.clicked("Delete session", s)
-        def delete_session(self, _):
-            pass
+    def load_session(self, var):
+        session_data = self.read_sessions()
+        websites = session_data[var.title]
+        subprocess.check_output(["open"] + websites)
+        #rumps.alert("load_session was triggered, with session name " + session_name)
+
+    @rumps.clicked("Delete session")
+    def delete_session(self, _):
+        pass
 
 if __name__ == "__main__":
     StatusBarApp().run()
