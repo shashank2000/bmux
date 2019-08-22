@@ -10,11 +10,12 @@ class StatusBarApp(rumps.App):
         self.tabs_file = "tabs.txt"
         self.script_file = "safari_tabs.scpt"
 
-        self.sub_menu = []
+        self.load_menu = []
+        self.delete_menu = []
         self.load_all_sessions()
         self.menu = ["Start session",
-                     ("Load session", self.sub_menu),
-                     "Delete session"]
+                     ("Load session", self.load_menu),
+                     ("Delete session", self.delete_menu)]
 
     def read_sessions(self):
         """Reads sessions from tabs_file. Returns a dictionary with keys as session names
@@ -101,8 +102,10 @@ class StatusBarApp(rumps.App):
     def load_all_sessions(self):
         session_names = self.get_session_names(self.tabs_file)
         for name in session_names:
-            item = rumps.MenuItem(name, callback=self.load_session)
-            self.sub_menu.append(item)
+            load_item = rumps.MenuItem(name, callback=self.load_session)
+            delete_item = rumps.MenuItem(name, callback=self.delete_session)
+            self.load_menu.append(load_item)
+            self.delete_menu.append(delete_item)
 
     def load_session(self, var):
         session_data = self.read_sessions()
@@ -110,9 +113,13 @@ class StatusBarApp(rumps.App):
         subprocess.check_output(["open"] + websites)
         #rumps.alert("load_session was triggered, with session name " + session_name)
 
-    @rumps.clicked("Delete session")
-    def delete_session(self, _):
-        pass
+    def delete_session(self, var):
+        session_data = self.read_sessions()
+        new_session_data = {}
+        for session in session_data:
+            if session != var.title:
+                new_session_data[session] = session_data[session]
+        self.write_sessions(new_session_data)
 
 if __name__ == "__main__":
     StatusBarApp().run()
