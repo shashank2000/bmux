@@ -2,10 +2,6 @@ import rumps
 import subprocess
 import time 
 
-@rumps.timer(1000)
-def mytimer(_):
-    print("hi")
-
 class StatusBarApp(rumps.App):
     def __init__(self):
         super(StatusBarApp, self).__init__("BMUX")
@@ -55,7 +51,7 @@ class StatusBarApp(rumps.App):
                     f.write(url + "\n")
                 f.write("\n")
 
-    @rumps.timer(10)
+    @rumps.timer(30)
     def a(self, _):
         # this function should be called every time we load a session or start a session, or on the current session
         print("current session is " + self.current_session)
