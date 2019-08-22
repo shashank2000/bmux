@@ -16,6 +16,7 @@ class StatusBarApp(rumps.App):
         self.menu = ["Start session",
                      ("Load session", self.load_menu),
                      ("Delete session", self.delete_menu)]
+        self.quit_button = "Quit"
 
     def read_sessions(self):
         """Reads sessions from tabs_file. Returns a dictionary with keys as session names
@@ -95,8 +96,6 @@ class StatusBarApp(rumps.App):
                 if line.startswith("Name"):
                     session_names.append(" ".join(line.split(" ")[1:]).strip())
         return session_names
-
-    #session_names = get_session_names("tabs.txt") # Hack solution
 
     def load_all_sessions(self):
         session_names = self.get_session_names(self.tabs_file)
