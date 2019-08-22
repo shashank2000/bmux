@@ -37,7 +37,6 @@ class StatusBarApp(rumps.App):
     def write_sessions(self, sessions):
         """Writes the passed dictionary into tabs_file
         """
-        #open(self.tabs_file, "w").close()
         with open(self.tabs_file, "w") as f:
             for session_name in sessions:
                 urls = sessions[session_name]
@@ -47,9 +46,9 @@ class StatusBarApp(rumps.App):
                 f.write("\n")
 
     @rumps.clicked("Start session")
-    #@rumps.timer(60) # run record_tabs every 60 seconds
     def record_tabs(self, _):
         response = rumps.Window(
+            default_text="my cool session"
             cancel="Cancel",
             title="Enter a session name",
             dimensions=(300,20)
@@ -108,7 +107,6 @@ class StatusBarApp(rumps.App):
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
-        #rumps.alert("load_session was triggered, with session name " + session_name)
 
     @rumps.clicked("Delete session")
     def delete_session(self, _):
