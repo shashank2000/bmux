@@ -42,7 +42,7 @@ class StatusBarApp(rumps.App):
                 f.write("\n")
 
     @rumps.clicked("Start session")
-    @rumps.timer(60) # run record_tabs every 60 seconds
+    #@rumps.timer(60) # run record_tabs every 60 seconds
     def record_tabs(self, _):
         # rumps.alert("something was clicked")
 
@@ -53,7 +53,6 @@ class StatusBarApp(rumps.App):
         ).run()
         if not response.clicked: return
         session_name = response.text
-        session_name = ""
 
         open(self.temp_file, "w").close()
         subprocess.check_output(["osascript", self.script_file])
@@ -98,7 +97,8 @@ class StatusBarApp(rumps.App):
 
     for s in session_names:
         @rumps.clicked("Load session", s)
-        def load_session(self, session_name):
+        def load_session(self, var=s):
+            print(var)
             # how do you pass a particular session name?
             # read through the text file, add each website to the string
             rumps.alert("load_session was triggered, with session name " + session_name)
