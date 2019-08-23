@@ -87,11 +87,12 @@ class StatusBarApp(rumps.App):
         reflect the new session.
         """
         response = rumps.Window(
-            icon="images/standard_icon.png",
             cancel="fuggetaboutit",
             title="Enter a session name",
             dimensions=(300,20)
-        ).run()
+        )
+        response.icon = "images/standard_icon.png"
+        response = response.run()
         if not response.clicked: return
         session_name = response.text
         sessions = self.read_sessions()
