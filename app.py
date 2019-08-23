@@ -13,7 +13,6 @@ class StatusBarApp(rumps.App):
         self.script_file = "safari_tabs.scpt"
 
         self.current_session = ""
-        self.browser = "Safari"
 
         self.load_menu = []
         self.delete_menu = []
@@ -55,33 +54,23 @@ class StatusBarApp(rumps.App):
 
     @rumps.timer(10)
     def update_tabs(self, _):
-        """this function is called every time we load a session or start a session, or on the current session"""
-        if self.current_session:
-            print("Current session is", self.current_session)
-        if self.current_session:
-            open(self.temp_file, "w").close()
-            subprocess.check_output(["osascript", self.script_file])
-            print("----Tabs found----")
+        """This function should be called every time we load a session or start a session, or on the current session."""
+        if not self.current_session: return
+        print("Current session is", self.current_session)
+        open(self.temp_file, "w").close()
+        subprocess.check_output(["osascript", self.script_file])
+        print("----Tabs found----")
 
-            tabs = {}
-            name = ""
-            with open(self.temp_file, "r") as temp_file:
-                for line in temp_file.readlines():
-                    if line.startswith("Name"):
-                        name = " ".join(line.split(" ")[1:]).strip()
-                    elif line.startswith("URL"):
-                        tabs[name] = " ".join(line.split(" ")[1:]).strip()
+        url_list = []
+        name = ""
+        with open(self.temp_file, "r") as temp_file:
+            for line in temp_file.readlines():
+                url_list.append(line.strip())
 
-            url_list = []
-            for tab_name in tabs:
-                url = tabs[tab_name]
-                url_list.append(url)
-            sessions = self.read_sessions()
-            print(sessions)
-            sessions[self.current_session] = url_list
-            self.write_sessions(sessions)
-            
-
+        sessions = self.read_sessions()
+        sessions[self.current_session] = url_list
+        self.write_sessions(sessions)
+        print("----Tabs recorded----")
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
@@ -94,32 +83,7 @@ class StatusBarApp(rumps.App):
         ).run()
         if not response.clicked: return
         session_name = response.text
-
-        open(self.temp_file, "w").close()
-        subprocess.check_output(["osascript", self.script_file])
-        print("----Tabs found----")
-
-        tabs = {}
-        name = ""
-        with open(self.temp_file, "r") as temp_file:
-            for line in temp_file.readlines():
-                if line.startswith("Name"):
-                    name = " ".join(line.split(" ")[1:]).strip()
-                elif line.startswith("URL"):
-                    value = " ".join(line.split(" ")[1:]).strip()
-                    if "missing value" not in value:
-                        tabs[name] = value
-                    else:
-                        del tabs[name]
-
         sessions = self.read_sessions()
-        print(sessions)
-        url_list = []
-        for tab_name in tabs:
-            url = tabs[tab_name]
-            url_list.append(url)
-
-        # needs to be fixed
         if not session_name:
             base_string = "session_"
             base_number = 1
@@ -127,14 +91,9 @@ class StatusBarApp(rumps.App):
                 session_name = base_string + str(base_number)
                 if session_name not in sessions: break
                 base_number += 1
-        sessions[session_name] = url_list
-
-        self.write_sessions(sessions)
-        print("----Tabs recorded----")
+        print("Creating session", session_name)
         self.current_session = session_name
-        self.update_all_sessions()
-        
-
+        self.update_tabs()
 
     def get_session_names(self, tabs_file):
         session_names = []
