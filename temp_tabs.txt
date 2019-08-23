@@ -6,5 +6,3 @@ Name: inputstream - java read integers from text file - Stack Overflow
 URL: https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
 Name: Job Listing | LiveRamp
 URL: https://liveramp.com/careers/job-listing/?gh_jid=1818341
-Name: Hello - Wikipedia
-URL: https://en.wikipedia.org/wiki/Hello

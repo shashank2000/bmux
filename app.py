@@ -1,6 +1,6 @@
 import rumps
 import subprocess
-import time 
+import time
 
 # could use this if rumps timer screws up: https://pypi.org/project/schedule/
 class StatusBarApp(rumps.App):
@@ -10,18 +10,19 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "chrome_tabs.scpt"
+        self.script_file = "safari_tabs.scpt"
 
         self.current_session = ""
+        self.browser = "Safari"
+
         self.load_menu = []
         self.delete_menu = []
         self.load_all_sessions()
-        self.a(None)
+        self.update_tabs(None)
         self.menu = ["Start session",
                      ("Load session", self.load_menu),
                      ("Delete session", self.delete_menu)]
         self.quit_button = "Quit"
-        # self.active_session
 
     def read_sessions(self):
         """Reads sessions from tabs_file. Returns a dictionary with keys as session names
@@ -52,10 +53,11 @@ class StatusBarApp(rumps.App):
                     f.write(url + "\n")
                 f.write("\n")
 
-    @rumps.timer(30)
-    def a(self, _):
-        
-        print("current session is " + self.current_session)
+    @rumps.timer(10)
+    def update_tabs(self, _):
+        """this function is called every time we load a session or start a session, or on the current session"""
+        if self.current_session:
+            print("Current session is", self.current_session)
         if self.current_session:
             open(self.temp_file, "w").close()
             subprocess.check_output(["osascript", self.script_file])
@@ -78,7 +80,7 @@ class StatusBarApp(rumps.App):
             print(sessions)
             sessions[self.current_session] = url_list
             self.write_sessions(sessions)
-            if self.current_session: self.menu.add(rumps.MenuItem(self.current_session))
+            
 
 
     @rumps.clicked("Start session")
@@ -111,7 +113,7 @@ class StatusBarApp(rumps.App):
         for tab_name in tabs:
             url = tabs[tab_name]
             url_list.append(url)
-        
+
         # needs to be fixed
         if not session_name:
             base_string = "session_"
@@ -158,6 +160,8 @@ class StatusBarApp(rumps.App):
         self.menu.add(load_menu)
         self.menu.add(delete_menu)
         self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
+        if self.current_session: 
+                self.menu.add(rumps.MenuItem(self.current_session))
 
     def load_session(self, var):
         session_data = self.read_sessions()
