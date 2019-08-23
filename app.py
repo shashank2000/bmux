@@ -85,6 +85,7 @@ class StatusBarApp(rumps.App):
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
+        '''starts a new session, records tabs, and calls update_all_sessions to refresh the menu to reflect this'''
         response = rumps.Window(
             default_text="my cool session",
             cancel="Cancel",
@@ -105,7 +106,11 @@ class StatusBarApp(rumps.App):
                 if line.startswith("Name"):
                     name = " ".join(line.split(" ")[1:]).strip()
                 elif line.startswith("URL"):
-                    tabs[name] = " ".join(line.split(" ")[1:]).strip()
+                    value = " ".join(line.split(" ")[1:]).strip()
+                    if value != "missing value":
+                        tabs[name] = value
+                    else:
+                        del tabs[name]
 
         sessions = self.read_sessions()
         print(sessions)
@@ -127,6 +132,7 @@ class StatusBarApp(rumps.App):
         self.write_sessions(sessions)
         print("----Tabs recorded----")
         self.current_session = session_name
+        self.update_all_sessions()
         
 
 
@@ -164,10 +170,12 @@ class StatusBarApp(rumps.App):
                 self.menu.add(rumps.MenuItem(self.current_session))
 
     def load_session(self, var):
+        '''loads a session from the text file, and updates menu to reflect this'''
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
         self.current_session = var.title
+        load_all_sessions()
 
     def delete_session(self, var):
         session_data = self.read_sessions()
