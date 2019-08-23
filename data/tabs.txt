@@ -1,6 +1,3 @@
-Name: Example session
-https://www.youtube.com/watch?v=DUT5rEU6pqM
-
 Name: session_1
 https://stackoverflow.com/questions/15489570/java-scanner-with-regex-delimiter
 https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html

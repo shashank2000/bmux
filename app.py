@@ -111,6 +111,7 @@ class StatusBarApp(rumps.App):
         """
         self.current_session = ""
         self.update_all_sessions()
+        self.icon = "images/standard_icon.png"
 
     def get_session_names(self):
         """This method returns all the session names stored in self.tabs_file."""
@@ -134,7 +135,6 @@ class StatusBarApp(rumps.App):
             delete_menu.add(delete_item)
         self.menu.clear()
         if self.current_session:
-            self.icon.clear()
             self.icon = "images/green_icon.png"
             self.menu.add(rumps.MenuItem(self.current_session))
             self.menu.add(rumps.MenuItem("End session", callback=self.end_session))
