@@ -134,6 +134,8 @@ class StatusBarApp(rumps.App):
             delete_menu.add(delete_item)
         self.menu.clear()
         if self.current_session:
+            self.icon.clear()
+            self.icon = "images/green_icon.png"
             self.menu.add(rumps.MenuItem(self.current_session))
             self.menu.add(rumps.MenuItem("End session", callback=self.end_session))
         else:
