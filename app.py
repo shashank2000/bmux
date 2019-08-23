@@ -150,7 +150,7 @@ class StatusBarApp(rumps.App):
         """
         session_data = self.read_sessions()
         websites = session_data[var.title]
-        subprocess.check_output(["open -n"] + websites)
+        subprocess.check_output(["open", "-n"] + websites)
         self.current_session = var.title
         self.update_all_sessions()
 
