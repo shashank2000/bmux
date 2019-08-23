@@ -88,7 +88,7 @@ class StatusBarApp(rumps.App):
         '''starts a new session, records tabs, and calls update_all_sessions to refresh the menu to reflect this'''
         response = rumps.Window(
             default_text="my cool session",
-            cancel="Cancel",
+            cancel="fuggetaboutit",
             title="Enter a session name",
             dimensions=(300,20)
         ).run()
