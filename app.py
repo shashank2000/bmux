@@ -87,7 +87,7 @@ class StatusBarApp(rumps.App):
         reflect the new session.
         """
         response = rumps.Window(
-            cancel="Cancel",
+            cancel="fuggetaboutit",
             title="Enter a session name",
             dimensions=(300,20)
         ).run()
