@@ -1,6 +1,5 @@
 import rumps
 import subprocess
-import time
 
 class StatusBarApp(rumps.App):
     def __init__(self):
@@ -86,7 +85,12 @@ class StatusBarApp(rumps.App):
         reflect the new session.
         """
         response = rumps.Window(
+<<<<<<< HEAD
+            default_text="my cool session",
+            cancel="fuggetaboutit",
+=======
             cancel="Cancel",
+>>>>>>> 49d7fe23c58f3c4d9fc14166ae12a0285ff6cc2b
             title="Enter a session name",
             dimensions=(300,20)
         ).run()
@@ -147,7 +151,7 @@ class StatusBarApp(rumps.App):
         """
         session_data = self.read_sessions()
         websites = session_data[var.title]
-        subprocess.check_output(["open"] + websites)
+        subprocess.check_output(["open -n"] + websites)
         self.current_session = var.title
         self.update_all_sessions()
 
