@@ -71,7 +71,9 @@ class StatusBarApp(rumps.App):
         name = ""
         with open(self.temp_file, "r") as temp_file:
             for line in temp_file.readlines():
-                url_list.append(line.strip())
+                value = line.strip()
+                if "missing value" not in value:
+                    url_list.append(line.strip())
 
         sessions = self.read_sessions()
         sessions[self.current_session] = url_list
@@ -85,12 +87,7 @@ class StatusBarApp(rumps.App):
         reflect the new session.
         """
         response = rumps.Window(
-<<<<<<< HEAD
-            default_text="my cool session",
-            cancel="fuggetaboutit",
-=======
             cancel="Cancel",
->>>>>>> 49d7fe23c58f3c4d9fc14166ae12a0285ff6cc2b
             title="Enter a session name",
             dimensions=(300,20)
         ).run()
