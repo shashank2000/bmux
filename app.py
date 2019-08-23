@@ -2,7 +2,6 @@ import rumps
 import subprocess
 import time
 
-# could use this if rumps timer screws up: https://pypi.org/project/schedule/
 class StatusBarApp(rumps.App):
     def __init__(self):
         super(StatusBarApp, self).__init__("BMUX")
@@ -10,7 +9,7 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "safari_tabs.scpt"
+        self.script_file = "tabs_script.scpt"
 
         self.current_session = ""
 
@@ -74,7 +73,7 @@ class StatusBarApp(rumps.App):
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
-        '''starts a new session, records tabs, and calls update_all_sessions to refresh the menu to reflect this'''
+        """Starts a new session, records tabs, and calls update_tabs to refresh the menu to reflect this"""
         response = rumps.Window(
             default_text="my cool session",
             cancel="Cancel",
@@ -126,12 +125,12 @@ class StatusBarApp(rumps.App):
         self.menu.add(load_menu)
         self.menu.add(delete_menu)
         self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
-        if self.current_session: 
+        if self.current_session:
                 self.menu.add(rumps.MenuItem(self.current_session))
                 print("added current_session to menu")
 
     def load_session(self, var):
-        '''loads a session from the text file, and updates menu to reflect this'''
+        """loads a session from the text file, and updates menu to reflect this"""
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
@@ -140,7 +139,7 @@ class StatusBarApp(rumps.App):
         self.update_all_sessions()
 
     def delete_session(self, var):
-        '''deletes session, and makes sure the current session is changed to null if it is the session that was deleted'''
+        """deletes session, and makes sure the current session is changed to null if it is the session that was deleted"""
         session_data = self.read_sessions()
         new_session_data = {}
         for session in session_data:
