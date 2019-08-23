@@ -1,8 +1,14 @@
-Name: java.util.scanner - Java Scanner with regex delimiter - Stack Overflow
-URL: missing value
-Name: Scanner (Java Platform SE 7 )
-URL: missing value
-Name: inputstream - java read integers from text file - Stack Overflow
-URL: https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
-Name: Job Listing | LiveRamp
-URL: https://liveramp.com/careers/job-listing/?gh_jid=1818341
+missing value
+missing value
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://www.facebook.com/
+https://medium.com/@amitagondi/a-not-so-hot-take-on-rural-india-part-i-915fc67213f2
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://discussions.apple.com/thread/6503937
+https://github.com/junegunn/vim-xmark/issues/8
+https://computers.tutsplus.com/tutorials/the-ultimate-beginners-guide-to-applescript--mac-3436
+https://www.google.com/search?q=open+new+window+with+oepn+terminal&oq=open+new+window+with+oepn+terminal&aqs=chrome..69i57j69i64l3.6696j1j7&sourceid=chrome&ie=UTF-8

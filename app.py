@@ -1,6 +1,5 @@
 import rumps
 import subprocess
-import time
 
 # could use this if rumps timer screws up: https://pypi.org/project/schedule/
 class StatusBarApp(rumps.App):
@@ -10,7 +9,7 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "safari_tabs.scpt"
+        self.script_file = "tabs_script.scpt"
 
         self.current_session = ""
 
@@ -134,7 +133,7 @@ class StatusBarApp(rumps.App):
         '''loads a session from the text file, and updates menu to reflect this'''
         session_data = self.read_sessions()
         websites = session_data[var.title]
-        subprocess.check_output(["open"] + websites)
+        subprocess.check_output(["open -n"] + websites)
         self.current_session = var.title
         print
         self.update_all_sessions()
