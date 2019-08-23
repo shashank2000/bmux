@@ -1,6 +1,6 @@
 import rumps
 import subprocess
-import time 
+import time
 
 class StatusBarApp(rumps.App):
     def __init__(self):
@@ -9,13 +9,15 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "safari_tabs.scpt"
+        self.script_file = "tabs_script.scpt"
 
         self.current_session = ""
+        self.browser = "Safari"
+
         self.load_menu = []
         self.delete_menu = []
         self.load_all_sessions()
-        self.a(None)
+        self.update_tabs(None)
         self.menu = ["Start session",
                      ("Load session", self.load_menu),
                      ("Delete session", self.delete_menu)]
@@ -51,10 +53,11 @@ class StatusBarApp(rumps.App):
                     f.write(url + "\n")
                 f.write("\n")
 
-    @rumps.timer(30)
-    def a(self, _):
-        # this function should be called every time we load a session or start a session, or on the current session
-        print("current session is " + self.current_session)
+    @rumps.timer(10)
+    def update_tabs(self, _):
+        """this function should be called every time we load a session or start a session, or on the current session"""
+        if self.current_session:
+            print("Current session is", self.current_session)
         if self.current_session:
             open(self.temp_file, "w").close()
             subprocess.check_output(["osascript", self.script_file])
@@ -109,7 +112,7 @@ class StatusBarApp(rumps.App):
         for tab_name in tabs:
             url = tabs[tab_name]
             url_list.append(url)
-        
+
         # needs to be fixed
         if not session_name:
             base_string = "session_"
