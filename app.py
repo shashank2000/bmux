@@ -6,25 +6,33 @@ class StatusBarApp(rumps.App):
     def __init__(self):
         super(StatusBarApp, self).__init__("BMUX")
 
-        self.icon = "icon.png"
-        self.temp_file = "temp_tabs.txt"
-        self.tabs_file = "tabs.txt"
-        self.script_file = "tabs_script.scpt"
+        self.icon = "images/standard_icon.png"
+        self.temp_file = "data/temp_tabs.txt"
+        self.tabs_file = "data/tabs.txt"
+        self.script_file = "scripts/tabs_script.scpt"
 
         self.current_session = ""
 
         self.load_menu = []
         self.delete_menu = []
         self.load_all_sessions()
-        self.update_tabs(None)
+
         self.menu = ["Start session",
                      ("Load session", self.load_menu),
                      ("Delete session", self.delete_menu)]
-        self.quit_button = "Quit"
+
+    def load_all_sessions(self):
+        """This method is for initializing the sessions from the init function."""
+        session_names = self.get_session_names()
+        for name in session_names:
+            load_item = rumps.MenuItem(name, callback=self.load_session)
+            delete_item = rumps.MenuItem(name, callback=self.delete_session)
+            self.load_menu.append(load_item)
+            self.delete_menu.append(delete_item)
 
     def read_sessions(self):
-        """Reads sessions from tabs_file. Returns a dictionary with keys as session names
-        and values as a list of URLs
+        """Reads sessions from self.tabs_file and returns a dictionary with keys as session
+        names and values as a list of URLs
         """
         sessions = {}
         session_name = ""
@@ -41,7 +49,7 @@ class StatusBarApp(rumps.App):
         return sessions
 
     def write_sessions(self, sessions):
-        """Writes the passed dictionary into tabs_file
+        """Writes the passed dictionary into tabs_file.
         """
         with open(self.tabs_file, "w") as f:
             for session_name in sessions:
@@ -53,7 +61,7 @@ class StatusBarApp(rumps.App):
 
     @rumps.timer(10)
     def update_tabs(self, _):
-        """This function should be called every time we load a session or start a session, or on the current session."""
+        """This function makes sure that tabs are up-to-date."""
         if not self.current_session: return
         print("Current session is", self.current_session)
         open(self.temp_file, "w").close()
@@ -74,7 +82,9 @@ class StatusBarApp(rumps.App):
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
-        """Starts a new session, records tabs, and calls update_tabs to refresh the menu to reflect this"""
+        """Starts a new session, records tabs, and calls update_tabs to refresh the menu to
+        reflect the new session.
+        """
         response = rumps.Window(
             cancel="Cancel",
             title="Enter a session name",
@@ -95,27 +105,24 @@ class StatusBarApp(rumps.App):
         self.update_tabs()
 
     def end_session(self, _):
+        """This method ends any current session that may be running and updates the menu
+        accordingly.
+        """
         self.current_session = ""
         self.update_all_sessions()
 
-    def get_session_names(self, tabs_file):
+    def get_session_names(self):
+        """This method returns all the session names stored in self.tabs_file."""
         session_names = []
-        with open(tabs_file, "r") as f:
+        with open(self.tabs_file, "r") as f:
             for line in f.readlines():
                 if line.startswith("Name"):
                     session_names.append(" ".join(line.split(" ")[1:]).strip())
         return session_names
 
-    def load_all_sessions(self):
-        session_names = self.get_session_names(self.tabs_file)
-        for name in session_names:
-            load_item = rumps.MenuItem(name, callback=self.load_session)
-            delete_item = rumps.MenuItem(name, callback=self.delete_session)
-            self.load_menu.append(load_item)
-            self.delete_menu.append(delete_item)
-
     def update_all_sessions(self):
-        session_names = self.get_session_names(self.tabs_file)
+        """This method updates the menu to reflect the current state of self.tabs_file."""
+        session_names = self.get_session_names()
         load_menu = rumps.MenuItem("Load session")
         delete_menu = rumps.MenuItem("Delete session")
         for name in session_names:
@@ -127,7 +134,6 @@ class StatusBarApp(rumps.App):
         self.menu.clear()
         if self.current_session:
             self.menu.add(rumps.MenuItem(self.current_session))
-        if self.current_session:
             self.menu.add(rumps.MenuItem("End session", callback=self.end_session))
         else:
             self.menu.add(rumps.MenuItem("Start session", callback=self.record_tabs))
@@ -136,7 +142,9 @@ class StatusBarApp(rumps.App):
         self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
 
     def load_session(self, var):
-        """loads a session from the text file, and updates menu to reflect this"""
+        """Loads the session name passed in as var by loading it from self.tabs.txt, then
+        updates menu to reflect this.
+        """
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
@@ -144,7 +152,9 @@ class StatusBarApp(rumps.App):
         self.update_all_sessions()
 
     def delete_session(self, var):
-        """deletes session, and makes sure the current session is changed to null if it is the session that was deleted"""
+        """Deletes the session passed in as var and makes sure that self.current_session is
+        changed to an empty string if it is the session that was deleted.
+        """
         session_data = self.read_sessions()
         new_session_data = {}
         for session in session_data:

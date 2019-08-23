@@ -1,5 +1,5 @@
 set myText to ""
-set myFile to open for access file (POSIX path of ((path to me as text) & "::") & "temp_tabs.txt" as POSIX file) with write permission
+set myFile to open for access file (POSIX path of ((path to me as text) & "::") & "../data/temp_tabs.txt" as POSIX file) with write permission
 
 if application "Safari" is running then
   tell application "Safari"
