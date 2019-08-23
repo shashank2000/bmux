@@ -2,6 +2,7 @@ import rumps
 import subprocess
 import time 
 
+# could use this if rumps timer screws up: https://pypi.org/project/schedule/
 class StatusBarApp(rumps.App):
     def __init__(self):
         super(StatusBarApp, self).__init__("BMUX")
@@ -9,7 +10,7 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "safari_tabs.scpt"
+        self.script_file = "chrome_tabs.scpt"
 
         self.current_session = ""
         self.load_menu = []
@@ -53,7 +54,7 @@ class StatusBarApp(rumps.App):
 
     @rumps.timer(30)
     def a(self, _):
-        # this function should be called every time we load a session or start a session, or on the current session
+        
         print("current session is " + self.current_session)
         if self.current_session:
             open(self.temp_file, "w").close()
@@ -77,6 +78,7 @@ class StatusBarApp(rumps.App):
             print(sessions)
             sessions[self.current_session] = url_list
             self.write_sessions(sessions)
+            if self.current_session: self.menu.add(rumps.MenuItem(self.current_session))
 
 
     @rumps.clicked("Start session")
@@ -123,6 +125,8 @@ class StatusBarApp(rumps.App):
         self.write_sessions(sessions)
         print("----Tabs recorded----")
         self.current_session = session_name
+        
+
 
     def get_session_names(self, tabs_file):
         session_names = []
