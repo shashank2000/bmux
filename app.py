@@ -2,6 +2,7 @@ import rumps
 import subprocess
 import time
 
+# could use this if rumps timer screws up: https://pypi.org/project/schedule/
 class StatusBarApp(rumps.App):
     def __init__(self):
         super(StatusBarApp, self).__init__("BMUX")
@@ -9,7 +10,7 @@ class StatusBarApp(rumps.App):
         self.icon = "icon.png"
         self.temp_file = "temp_tabs.txt"
         self.tabs_file = "tabs.txt"
-        self.script_file = "tabs_script.scpt"
+        self.script_file = "safari_tabs.scpt"
 
         self.current_session = ""
 
@@ -21,7 +22,6 @@ class StatusBarApp(rumps.App):
                      ("Load session", self.load_menu),
                      ("Delete session", self.delete_menu)]
         self.quit_button = "Quit"
-        # self.active_session
 
     def read_sessions(self):
         """Reads sessions from tabs_file. Returns a dictionary with keys as session names
@@ -74,6 +74,7 @@ class StatusBarApp(rumps.App):
 
     @rumps.clicked("Start session")
     def record_tabs(self, _):
+        '''starts a new session, records tabs, and calls update_all_sessions to refresh the menu to reflect this'''
         response = rumps.Window(
             default_text="my cool session",
             cancel="Cancel",
@@ -111,6 +112,7 @@ class StatusBarApp(rumps.App):
             self.delete_menu.append(delete_item)
 
     def update_all_sessions(self):
+        print("update all sessions was called")
         session_names = self.get_session_names(self.tabs_file)
         load_menu = rumps.MenuItem("Load session")
         delete_menu = rumps.MenuItem("Delete session")
@@ -124,20 +126,29 @@ class StatusBarApp(rumps.App):
         self.menu.add(load_menu)
         self.menu.add(delete_menu)
         self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
+        if self.current_session: 
+                self.menu.add(rumps.MenuItem(self.current_session))
+                print("added current_session to menu")
 
     def load_session(self, var):
+        '''loads a session from the text file, and updates menu to reflect this'''
         session_data = self.read_sessions()
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
         self.current_session = var.title
+        print
+        self.update_all_sessions()
 
     def delete_session(self, var):
+        '''deletes session, and makes sure the current session is changed to null if it is the session that was deleted'''
         session_data = self.read_sessions()
         new_session_data = {}
         for session in session_data:
             if session != var.title:
                 new_session_data[session] = session_data[session]
         self.write_sessions(new_session_data)
+        if self.current_session == var.title:
+            self.current_session = ""
         self.update_all_sessions()
 
 if __name__ == "__main__":
