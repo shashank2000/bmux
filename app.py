@@ -104,6 +104,7 @@ class StatusBarApp(rumps.App):
                 base_number += 1
         print("Creating session", session_name)
         self.current_session = session_name
+        self.update_all_sessions()
         self.update_tabs()
 
     def end_session(self, _):
@@ -151,7 +152,7 @@ class StatusBarApp(rumps.App):
         """
         session_data = self.read_sessions()
         websites = session_data[var.title]
-        subprocess.check_output(["open", "-n"] + websites)
+        if websites: subprocess.check_output(["open", "-n"] + websites)
         self.current_session = var.title
         self.update_all_sessions()
 
