@@ -1,3 +1,30 @@
 Name: Example session
 https://www.youtube.com/watch?v=DUT5rEU6pqM
 
+Name: session_1
+https://stackoverflow.com/questions/15489570/java-scanner-with-regex-delimiter
+https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://www.google.com/?client=safari
+https://github.com/shashank2000/bmux
+https://rumps.readthedocs.io/en/latest/Window.html
+
+Name: session_2
+https://stackoverflow.com/questions/15489570/java-scanner-with-regex-delimiter
+https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://www.google.com/?client=safari
+https://github.com/shashank2000/bmux
+https://rumps.readthedocs.io/en/latest/Window.html
+
+Name: session_3
+https://stackoverflow.com/questions/15489570/java-scanner-with-regex-delimiter
+https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html
+https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
+https://www.google.com/?client=safari
+https://github.com/shashank2000/bmux
+https://rumps.readthedocs.io/en/latest/Window.html
+
