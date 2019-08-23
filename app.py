@@ -107,7 +107,7 @@ class StatusBarApp(rumps.App):
                     name = " ".join(line.split(" ")[1:]).strip()
                 elif line.startswith("URL"):
                     value = " ".join(line.split(" ")[1:]).strip()
-                    if value != "missing value":
+                    if "missing value" not in value:
                         tabs[name] = value
                     else:
                         del tabs[name]
@@ -153,6 +153,7 @@ class StatusBarApp(rumps.App):
             self.delete_menu.append(delete_item)
 
     def update_all_sessions(self):
+        print("update all sessions was called")
         session_names = self.get_session_names(self.tabs_file)
         load_menu = rumps.MenuItem("Load session")
         delete_menu = rumps.MenuItem("Delete session")
@@ -168,6 +169,7 @@ class StatusBarApp(rumps.App):
         self.menu.add(rumps.MenuItem("Quit", callback=rumps.quit_application))
         if self.current_session: 
                 self.menu.add(rumps.MenuItem(self.current_session))
+                print("added current_session to menu")
 
     def load_session(self, var):
         '''loads a session from the text file, and updates menu to reflect this'''
@@ -175,15 +177,19 @@ class StatusBarApp(rumps.App):
         websites = session_data[var.title]
         subprocess.check_output(["open"] + websites)
         self.current_session = var.title
-        load_all_sessions()
+        print
+        self.update_all_sessions()
 
     def delete_session(self, var):
+        '''deletes session, and makes sure the current session is changed to null if it is the session that was deleted'''
         session_data = self.read_sessions()
         new_session_data = {}
         for session in session_data:
             if session != var.title:
                 new_session_data[session] = session_data[session]
         self.write_sessions(new_session_data)
+        if self.current_session == var.title:
+            self.current_session = ""
         self.update_all_sessions()
 
 if __name__ == "__main__":

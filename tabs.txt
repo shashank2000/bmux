@@ -1,17 +1,14 @@
 Name: session_1
 https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
+https://liveramp.com/careers/job-listing/?gh_jid=1818341
 
 Name: session_5
 https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
 https://liveramp.com/careers/job-listing/?gh_jid=1818341
 
-Name: session_6
-http://localhost:8888/notebooks/flux_emergence_analysis.ipynb
-https://trello.com/b/hFp35Adi/bmux-board
-https://github.com/shashank2000/bmux
-
 Name: my cool session
+missing value
+missing value
 https://stackoverflow.com/questions/27024382/java-read-integers-from-text-file
 https://liveramp.com/careers/job-listing/?gh_jid=1818341
-https://en.wikipedia.org/wiki/Hello
 
