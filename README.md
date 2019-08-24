@@ -21,12 +21,10 @@ Using _bmux_ is very straightforward. There are three main functions: `Start ses
 - `Load session` lets you load a previously-created session. BMUX will launch a new window with the tabs saved in the session.
 - `Delete session` lets you delete a session.
 
----
 ## Download
 Download the **v1.0-alpha** release of _bmux_ [here](https://github.com/shashank2000/bmux/releases/download/v1.0-alpha/bmux.zip).
 
 Please let us know if you have any feedback by posting an issue.
 
----
 ## Credits
 Developed by Lucas Pauker and Shashank Rammoorthy
