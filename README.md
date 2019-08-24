@@ -27,4 +27,4 @@ Download the **v1.0-alpha** release of _bmux_ [here](https://github.com/shashank
 Please let us know if you have any feedback by posting an issue.
 
 ## Credits
-Developed by Lucas Pauker and Shashank Rammoorthy
+Developed by [Lucas Pauker](https://github.com/lucaspauker) and [Shashank Rammoorthy](https://github.com/shashank2000)
