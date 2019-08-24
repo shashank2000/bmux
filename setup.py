@@ -7,8 +7,8 @@ Usage:
 
 from setuptools import setup
 
-APP = ['app.py']
-DATA_FILES = []
+APP = ['bmux.py']
+DATA_FILES = ['data', 'images', 'scripts']
 OPTIONS = {}
 
 setup(
