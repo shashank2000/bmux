@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>bmux</string>
 	<key>CFBundleIconFile</key>
-	<string>PythonApplet.icns</string>
+	<string>standard_icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.pythonmac.unspecified.bmux</string>
 	<key>CFBundleInfoDictionaryVersion</key>

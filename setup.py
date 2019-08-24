@@ -9,7 +9,9 @@ from setuptools import setup
 
 APP = ['bmux.py']
 DATA_FILES = ['data', 'images', 'scripts']
-OPTIONS = {}
+OPTIONS = {
+        'iconfile': 'images/standard_icon.icns'
+}
 
 setup(
     app=APP,
